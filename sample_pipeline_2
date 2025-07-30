@@ -8,7 +8,7 @@ pipeline {
         stage("Initialized shared library") {
             steps {
                 script {
-                    lib = library("uft_shared_library").org.example
+                    lib = library("jenkins-shared-libraries-demo").org.example
                     util = lib.Utils.new(this)
 
                 }
