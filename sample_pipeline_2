@@ -1,6 +1,6 @@
 
 
-def util = null
+def lib = null
 
 pipeline {
     agent any
@@ -9,22 +9,21 @@ pipeline {
             steps {
                 script {
                     lib = library("jenkins-shared-libraries-demo").org.example
-                    util = lib.Utils.new(this)
-
+                    
                 }
             }
         }
         stage('Hello World') {
             steps {
                 script {
-                    Greating('Naren')   // using vars/helloWorld.groovy
+                    Greeting('Naren')   // using vars/helloWorld.groovy
                 }
             }
         }
         stage('Build Info') {
             steps {
                 script {
-                    def info = Utils.getBuildInfo(env)
+                    def info = lib.Utils.getBuildInfo(env)
                     echo "Build Info: ${info}"
                 }
             }
