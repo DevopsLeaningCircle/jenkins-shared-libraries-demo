@@ -1,0 +1,41 @@
+@Library('jenkins-shared-libraries-demo') _
+import org.example.Utils
+
+pipeline {
+    agent any
+    stages {
+        stage('Hello World') {
+            steps {
+                script {
+                    helloWorld('Naren')   // using vars/helloWorld.groovy
+                }
+            }
+        }
+        stage('Build Info') {
+            steps {
+                script {
+                    def info = Utils.getBuildInfo(env)
+                    echo "Build Info: ${info}"
+                }
+            }
+        }
+
+        stage("Run script from resource folder"){
+            steps {
+                script{
+                    // Load script from shared library resources
+                    def scriptContent = libraryResource('scripts/test.sh')
+
+                    // Write the script to the workspace
+                    writeFile file: 'test.sh', text: scriptContent
+
+                    // Make it executable
+                    sh 'chmod +x test.sh'
+
+                    // Run the script 
+                    sh "./test.sh"
+                }
+            }
+        }
+    }
+}
