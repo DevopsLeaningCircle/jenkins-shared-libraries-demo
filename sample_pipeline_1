@@ -7,7 +7,7 @@ pipeline {
         stage('Hello World') {
             steps {
                 script {
-                    helloWorld('Naren')   // using vars/helloWorld.groovy
+                    Greating('Naren')   // using vars/helloWorld.groovy
                 }
             }
         }
